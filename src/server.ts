@@ -32,11 +32,11 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     const { image_url: imageUrl } = req.query;
 
     if(!imageUrl) {
-      return res.status(403).send("image_url required");
+      return res.status(422).send("image_url required");
     }
 
     if(!(imageUrl as string).startsWith('http')) {
-      return res.status(403).send("Not a valid image url");
+      return res.status(422).send("Not a valid image url");
     }
 
     try {
@@ -46,6 +46,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
       })
     }
     catch (e) {
+      console.log(e);
       return res.status(500).send("Error occurred while processing image. Please try using a different image");
     }
   });
